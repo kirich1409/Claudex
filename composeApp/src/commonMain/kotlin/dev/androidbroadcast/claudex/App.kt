@@ -10,28 +10,26 @@ import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import dev.androidbroadcast.claudex.ui.theme.ClaudexTheme
+import org.jetbrains.compose.resources.painterResource
+
 import claudex.composeapp.generated.resources.Res
 import claudex.composeapp.generated.resources.compose_multiplatform
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
 @Preview
-fun App() {
-    MaterialTheme {
+public fun App() {
+    ClaudexTheme {
         var showContent by remember { mutableStateOf(false) }
         Column(
-            modifier =
-                Modifier
-                    .background(MaterialTheme.colorScheme.primaryContainer)
-                    .safeContentPadding()
-                    .fillMaxSize(),
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .safeContentPadding()
+                .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Button(onClick = { showContent = !showContent }) {

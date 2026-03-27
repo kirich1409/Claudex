@@ -1,7 +1,7 @@
 package dev.androidbroadcast.claudex
 
-class JVMPlatform : Platform {
-    override val name: String = "Java ${System.getProperty("java.version")}"
+internal class JVMPlatform : Platform {
+    override val name: String = "Java ${System.getProperty("java.version") ?: "unknown"}"
 }
 
-actual fun getPlatform(): Platform = JVMPlatform()
+public actual fun getPlatform(): Platform = JVMPlatform()

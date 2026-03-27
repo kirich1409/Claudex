@@ -1,7 +1,7 @@
 package dev.androidbroadcast.claudex
 
-interface Platform {
-    val name: String
+public interface Platform {
+    public val name: String
 }
 
-expect fun getPlatform(): Platform
+public expect fun getPlatform(): Platform
