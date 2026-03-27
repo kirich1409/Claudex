@@ -12,17 +12,15 @@ plugins {
     alias(libs.plugins.sqldelight)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.kover)
-    alias(libs.plugins.metro)
+    // Metro DI plugin — applied here, graphs wired in Task 9
+    alias(libs.plugins.metro) apply false
 }
 
 kotlin {
     explicitApi()
 
     compilerOptions {
-        freeCompilerArgs.addAll(
-            "-Werror",
-            "-Xwhen-guards",
-        )
+        freeCompilerArgs.addAll("-Xwhen-guards")
         allWarningsAsErrors.set(true)
     }
 
