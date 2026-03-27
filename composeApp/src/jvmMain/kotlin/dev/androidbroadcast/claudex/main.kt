@@ -8,7 +8,6 @@ import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.extensions.compose.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import dev.androidbroadcast.claudex.component.root.DefaultRootComponent
-import dev.androidbroadcast.claudex.data.SqlDelightMessageRepository
 import dev.androidbroadcast.claudex.data.SqlDelightProjectRepository
 import dev.androidbroadcast.claudex.data.SqlDelightSessionRepository
 import dev.androidbroadcast.claudex.data.db.ClaudexDatabase
@@ -30,9 +29,7 @@ public fun main(): Unit {
     val projectRepository = SqlDelightProjectRepository(database)
     val sessionRepository = SqlDelightSessionRepository(database)
 
-    // TODO(Task 10): Wire MessageRepository once chat session wiring is implemented
-    @Suppress("UNUSED_VARIABLE")
-    val messageRepository = SqlDelightMessageRepository(database)
+    // TODO: messageRepository wired in chatComponentFactory when session DI is added
 
     val lifecycle = LifecycleRegistry()
     val rootComponent = DefaultRootComponent(
