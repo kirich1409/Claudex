@@ -28,9 +28,10 @@ internal fun claudexTypography(): Typography {
     val interRegular = Font(Res.font.Inter_Regular, weight = FontWeight.Normal)
     val interMedium = Font(Res.font.Inter_Medium, weight = FontWeight.Medium)
     val interSemiBold = Font(Res.font.Inter_SemiBold, weight = FontWeight.SemiBold)
-    val inter = remember(interRegular, interMedium, interSemiBold) {
-        FontFamily(interRegular, interMedium, interSemiBold)
-    }
+    val inter =
+        remember(interRegular, interMedium, interSemiBold) {
+            FontFamily(interRegular, interMedium, interSemiBold)
+        }
     return remember(inter) {
         Typography().run {
             copy(

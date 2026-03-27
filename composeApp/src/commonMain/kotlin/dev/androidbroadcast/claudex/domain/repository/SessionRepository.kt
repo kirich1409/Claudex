@@ -11,7 +11,10 @@ public interface SessionRepository {
 
     public suspend fun insert(session: Session): Result<Unit>
 
-    public suspend fun updateStatus(id: String, status: SessionStatus): Result<Unit>
+    public suspend fun updateStatus(
+        id: String,
+        status: SessionStatus,
+    ): Result<Unit>
 
     public suspend fun delete(id: String): Result<Unit>
 }

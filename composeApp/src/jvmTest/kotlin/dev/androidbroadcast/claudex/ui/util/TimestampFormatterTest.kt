@@ -5,7 +5,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 class TimestampFormatterTest {
-
     @Test
     fun `non-zero timestamp returns a non-empty string`() {
         val result = System.currentTimeMillis().toRelativeTimestamp()

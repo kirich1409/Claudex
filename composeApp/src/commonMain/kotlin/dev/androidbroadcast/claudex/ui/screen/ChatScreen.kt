@@ -57,10 +57,11 @@ internal fun ChatScreen(
                 when (message.role) {
                     MessageRole.USER -> UserMessageBubble(text = message.content)
                     MessageRole.ASSISTANT -> AssistantMessage(text = message.content)
-                    MessageRole.TOOL -> AssistantMessage(
-                        text = message.content,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
+                    MessageRole.TOOL ->
+                        AssistantMessage(
+                            text = message.content,
+                            modifier = Modifier.fillMaxWidth(),
+                        )
                 }
             }
             state.durationSeconds?.let { secs ->
@@ -69,9 +70,10 @@ internal fun ChatScreen(
                         text = "── Worked for ${secs}s ──",
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 4.dp),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 4.dp),
                     )
                 }
             }
@@ -79,9 +81,10 @@ internal fun ChatScreen(
 
         if (state.suggestions.isNotEmpty()) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 4.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 4.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 state.suggestions.forEach { suggestion ->
@@ -103,15 +106,17 @@ internal fun ChatScreen(
                     draft = ""
                 }
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
         )
 
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 4.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 4.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             StatusBarChip(label = "Local", onClick = {})

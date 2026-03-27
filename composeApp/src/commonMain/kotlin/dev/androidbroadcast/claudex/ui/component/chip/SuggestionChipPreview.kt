@@ -1,3 +1,4 @@
+@file:Suppress("UnusedPrivateMember")
 package dev.androidbroadcast.claudex.ui.component.chip
 
 import androidx.compose.foundation.layout.Arrangement

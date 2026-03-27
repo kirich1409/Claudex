@@ -44,18 +44,20 @@ public fun ProjectItem(
     modifier: Modifier = Modifier,
 ) {
     val spacing = LocalSpacing.current
-    val itemModifier = hoverableItemModifier(
-        spacing = spacing,
-        hoveredColor = MaterialTheme.colorScheme.surfaceVariant,
-        defaultColor = MaterialTheme.colorScheme.surface,
-        onClick = onClick,
-    )
+    val itemModifier =
+        hoverableItemModifier(
+            spacing = spacing,
+            hoveredColor = MaterialTheme.colorScheme.surfaceVariant,
+            defaultColor = MaterialTheme.colorScheme.surface,
+            onClick = onClick,
+        )
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-            .minimumInteractiveComponentSize()
-            .then(itemModifier),
+        modifier =
+            modifier
+                .minimumInteractiveComponentSize()
+                .then(itemModifier),
     ) {
         ProjectIconPlaceholder(size = spacing.md, cornerRadius = spacing.xs)
         Spacer(modifier = Modifier.width(spacing.sm))
@@ -78,25 +80,27 @@ public fun SessionItem(
     isSelected: Boolean = false,
 ) {
     val spacing = LocalSpacing.current
-    val itemModifier = hoverableItemModifier(
-        spacing = spacing,
-        hoveredColor = MaterialTheme.colorScheme.surfaceVariant,
-        defaultColor = Color.Transparent,
-        onClick = onClick,
-        isSelected = isSelected,
-        selectedColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-    )
+    val itemModifier =
+        hoverableItemModifier(
+            spacing = spacing,
+            hoveredColor = MaterialTheme.colorScheme.surfaceVariant,
+            defaultColor = Color.Transparent,
+            onClick = onClick,
+            isSelected = isSelected,
+            selectedColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+        )
 
-    val dotModifier = if (isRunning) {
-        Modifier
-            .size(8.dp)
-            .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
-            .semantics { contentDescription = "Session running" }
-    } else {
-        Modifier
-            .size(8.dp)
-            .clearAndSetSemantics { }
-    }
+    val dotModifier =
+        if (isRunning) {
+            Modifier
+                .size(8.dp)
+                .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
+                .semantics { contentDescription = "Session running" }
+        } else {
+            Modifier
+                .size(8.dp)
+                .clearAndSetSemantics { }
+        }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -127,18 +131,20 @@ public fun ActionItem(
     modifier: Modifier = Modifier,
 ) {
     val spacing = LocalSpacing.current
-    val itemModifier = hoverableItemModifier(
-        spacing = spacing,
-        hoveredColor = MaterialTheme.colorScheme.primaryContainer,
-        defaultColor = MaterialTheme.colorScheme.surface,
-        onClick = onClick,
-    )
+    val itemModifier =
+        hoverableItemModifier(
+            spacing = spacing,
+            hoveredColor = MaterialTheme.colorScheme.primaryContainer,
+            defaultColor = MaterialTheme.colorScheme.surface,
+            onClick = onClick,
+        )
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-            .minimumInteractiveComponentSize()
-            .then(itemModifier),
+        modifier =
+            modifier
+                .minimumInteractiveComponentSize()
+                .then(itemModifier),
     ) {
         Text(
             text = "+",
@@ -170,11 +176,12 @@ private fun hoverableItemModifier(
 ): Modifier {
     val interactionSource = remember { MutableInteractionSource() }
     val hovered by interactionSource.collectIsHoveredAsState()
-    val bgColor = when {
-        isSelected && selectedColor != Color.Unspecified -> selectedColor
-        hovered -> hoveredColor
-        else -> defaultColor
-    }
+    val bgColor =
+        when {
+            isSelected && selectedColor != Color.Unspecified -> selectedColor
+            hovered -> hoveredColor
+            else -> defaultColor
+        }
     return Modifier
         .fillMaxWidth()
         .clip(RoundedCornerShape(spacing.xs))
@@ -185,7 +192,10 @@ private fun hoverableItemModifier(
 }
 
 @Composable
-private fun ProjectIconPlaceholder(size: Dp, cornerRadius: Dp) {
+private fun ProjectIconPlaceholder(
+    size: Dp,
+    cornerRadius: Dp,
+) {
     Surface(
         modifier = Modifier.size(size),
         shape = RoundedCornerShape(cornerRadius),

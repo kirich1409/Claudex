@@ -15,80 +15,84 @@ import kotlin.test.assertTrue
 
 @OptIn(ExperimentalTestApi::class)
 class ClaudexButtonTest {
+    @Test
+    fun primaryButtonClickFiresCallback() =
+        runComposeUiTest {
+            var clicked = false
+            setContent {
+                ClaudexTheme {
+                    ClaudexButton(
+                        label = "Click me",
+                        variant = ButtonVariant.Primary,
+                        onClick = { clicked = true },
+                    )
+                }
+            }
+            onNodeWithText("Click me").performClick()
+            assertTrue(clicked)
+        }
 
     @Test
-    fun primaryButtonClickFiresCallback() = runComposeUiTest {
-        var clicked = false
-        setContent {
-            ClaudexTheme {
-                ClaudexButton(
-                    label = "Click me",
-                    variant = ButtonVariant.Primary,
-                    onClick = { clicked = true },
-                )
+    fun ghostButtonClickFiresCallback() =
+        runComposeUiTest {
+            var clicked = false
+            setContent {
+                ClaudexTheme {
+                    ClaudexButton(
+                        label = "Ghost",
+                        variant = ButtonVariant.Ghost,
+                        onClick = { clicked = true },
+                    )
+                }
             }
+            onNodeWithText("Ghost").performClick()
+            assertTrue(clicked)
         }
-        onNodeWithText("Click me").performClick()
-        assertTrue(clicked)
-    }
 
     @Test
-    fun ghostButtonClickFiresCallback() = runComposeUiTest {
-        var clicked = false
-        setContent {
-            ClaudexTheme {
-                ClaudexButton(
-                    label = "Ghost",
-                    variant = ButtonVariant.Ghost,
-                    onClick = { clicked = true },
-                )
+    fun destructiveButtonClickFiresCallback() =
+        runComposeUiTest {
+            var clicked = false
+            setContent {
+                ClaudexTheme {
+                    ClaudexButton(
+                        label = "Delete",
+                        variant = ButtonVariant.Destructive,
+                        onClick = { clicked = true },
+                    )
+                }
             }
+            onNodeWithText("Delete").performClick()
+            assertTrue(clicked)
         }
-        onNodeWithText("Ghost").performClick()
-        assertTrue(clicked)
-    }
 
     @Test
-    fun destructiveButtonClickFiresCallback() = runComposeUiTest {
-        var clicked = false
-        setContent {
-            ClaudexTheme {
-                ClaudexButton(
-                    label = "Delete",
-                    variant = ButtonVariant.Destructive,
-                    onClick = { clicked = true },
-                )
+    fun disabledButtonDoesNotFireCallback() =
+        runComposeUiTest {
+            setContent {
+                ClaudexTheme {
+                    ClaudexButton(
+                        label = "Disabled",
+                        variant = ButtonVariant.Primary,
+                        onClick = {},
+                        enabled = false,
+                    )
+                }
             }
+            onNodeWithText("Disabled").assertIsNotEnabled()
         }
-        onNodeWithText("Delete").performClick()
-        assertTrue(clicked)
-    }
 
     @Test
-    fun disabledButtonDoesNotFireCallback() = runComposeUiTest {
-        setContent {
-            ClaudexTheme {
-                ClaudexButton(
-                    label = "Disabled",
-                    variant = ButtonVariant.Primary,
-                    onClick = {},
-                    enabled = false,
-                )
+    fun iconButtonHasContentDescription() =
+        runComposeUiTest {
+            setContent {
+                ClaudexTheme {
+                    ClaudexIconButton(
+                        contentDescription = "Send message",
+                        onClick = {},
+                    )
+                }
             }
+            onNodeWithContentDescription("Send message").assertExists()
         }
-        onNodeWithText("Disabled").assertIsNotEnabled()
-    }
-
-    @Test
-    fun iconButtonHasContentDescription() = runComposeUiTest {
-        setContent {
-            ClaudexTheme {
-                ClaudexIconButton(
-                    contentDescription = "Send message",
-                    onClick = {},
-                )
-            }
-        }
-        onNodeWithContentDescription("Send message").assertExists()
-    }
 }

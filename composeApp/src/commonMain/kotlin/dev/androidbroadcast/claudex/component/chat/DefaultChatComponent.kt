@@ -21,7 +21,6 @@ internal class DefaultChatComponent(
     private val driver: ClaudeProcessDriver,
     private val messageRepository: MessageRepository,
 ) : ChatComponent, ComponentContext by componentContext {
-
     private val scope = coroutineScope()
     private val _state = MutableValue(ChatComponent.State())
 
@@ -41,14 +40,15 @@ internal class DefaultChatComponent(
 
     override fun onSendMessage(text: String) {
         scope.launch {
-            val userMsg = Message(
-                id = generateId(),
-                sessionId = session.id,
-                role = MessageRole.USER,
-                content = text,
-                rawJson = null,
-                timestamp = now(),
-            )
+            val userMsg =
+                Message(
+                    id = generateId(),
+                    sessionId = session.id,
+                    role = MessageRole.USER,
+                    content = text,
+                    rawJson = null,
+                    timestamp = now(),
+                )
             messageRepository.insert(userMsg)
             _state.update { it.copy(status = ChatComponent.Status.Running, suggestions = emptyList()) }
             driver.send(text)
@@ -97,13 +97,16 @@ internal class DefaultChatComponent(
                 }
             }
             is ClaudeEvent.Unknown -> {
+                @Suppress("MagicNumber")
                 Napier.v(tag = TAG) { "Unknown event: ${event.raw.take(80)}" }
             }
         }
     }
 
-    private fun generateId(): String = Clock.System.now().toEpochMilliseconds().toString(16) +
-        (0..999).random().toString().padStart(3, '0')
+    @Suppress("MagicNumber")
+    private fun generateId(): String =
+        Clock.System.now().toEpochMilliseconds().toString(16) +
+            (0..999).random().toString().padStart(3, '0')
 
     private fun now(): Long = Clock.System.now().toEpochMilliseconds()
 

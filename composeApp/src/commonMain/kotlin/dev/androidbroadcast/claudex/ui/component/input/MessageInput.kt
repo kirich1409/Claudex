@@ -41,38 +41,41 @@ public fun MessageInput(
     val spacing = LocalSpacing.current
 
     Row(
-        modifier = modifier
-            .border(
-                width = 1.dp,
-                color = MaterialTheme.colorScheme.outlineVariant,
-                shape = RoundedCornerShape(12.dp),
-            )
-            .padding(horizontal = spacing.sm, vertical = spacing.xs),
+        modifier =
+            modifier
+                .border(
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.outlineVariant,
+                    shape = RoundedCornerShape(12.dp),
+                )
+                .padding(horizontal = spacing.sm, vertical = spacing.xs),
         verticalAlignment = Alignment.Bottom,
     ) {
         BasicTextField(
             value = value,
             onValueChange = onValueChange,
-            modifier = Modifier
-                .weight(1f)
-                .heightIn(min = 48.dp, max = 200.dp)
-                .padding(horizontal = spacing.xs, vertical = spacing.sm)
-                .semantics { contentDescription = "Message input" }
-                .onPreviewKeyEvent { keyEvent ->
-                    if (
-                        keyEvent.key == Key.Enter &&
-                        !keyEvent.isShiftPressed &&
-                        keyEvent.type == KeyEventType.KeyDown
-                    ) {
-                        onSend()
-                        true
-                    } else {
-                        false
-                    }
-                },
-            textStyle = MaterialTheme.typography.bodyLarge.copy(
-                color = MaterialTheme.colorScheme.onSurface,
-            ),
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .heightIn(min = 48.dp, max = 200.dp)
+                    .padding(horizontal = spacing.xs, vertical = spacing.sm)
+                    .semantics { contentDescription = "Message input" }
+                    .onPreviewKeyEvent { keyEvent ->
+                        if (
+                            keyEvent.key == Key.Enter &&
+                            !keyEvent.isShiftPressed &&
+                            keyEvent.type == KeyEventType.KeyDown
+                        ) {
+                            onSend()
+                            true
+                        } else {
+                            false
+                        }
+                    },
+            textStyle =
+                MaterialTheme.typography.bodyLarge.copy(
+                    color = MaterialTheme.colorScheme.onSurface,
+                ),
             cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
             keyboardActions = KeyboardActions(onSend = { onSend() }),
@@ -103,18 +106,19 @@ public fun MessageInput(
     }
 }
 
-private val SendIcon: ImageVector = ImageVector.Builder(
-    name = "Send",
-    defaultWidth = 24.dp,
-    defaultHeight = 24.dp,
-    viewportWidth = 24f,
-    viewportHeight = 24f,
-).path {
-    moveTo(2.01f, 21f)
-    lineTo(23f, 12f)
-    lineTo(2.01f, 3f)
-    lineTo(2f, 10f)
-    lineTo(17f, 12f)
-    lineTo(2f, 14f)
-    close()
-}.build()
+private val SendIcon: ImageVector =
+    ImageVector.Builder(
+        name = "Send",
+        defaultWidth = 24.dp,
+        defaultHeight = 24.dp,
+        viewportWidth = 24f,
+        viewportHeight = 24f,
+    ).path {
+        moveTo(2.01f, 21f)
+        lineTo(23f, 12f)
+        lineTo(2.01f, 3f)
+        lineTo(2f, 10f)
+        lineTo(17f, 12f)
+        lineTo(2f, 14f)
+        close()
+    }.build()

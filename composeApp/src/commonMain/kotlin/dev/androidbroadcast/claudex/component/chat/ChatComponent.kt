@@ -7,7 +7,9 @@ public interface ChatComponent {
     public val state: Value<State>
 
     public fun onSendMessage(text: String)
+
     public fun onSuggestionSelected(text: String)
+
     public fun onStopSession()
 
     public data class State(
@@ -20,9 +22,13 @@ public interface ChatComponent {
 
     public sealed interface Status {
         public data object Connecting : Status
+
         public data object Running : Status
+
         public data object Idle : Status
+
         public data object Stopped : Status
+
         public data class Error(val message: String) : Status
     }
 }

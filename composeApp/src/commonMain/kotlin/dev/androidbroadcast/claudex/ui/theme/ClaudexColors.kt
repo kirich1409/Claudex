@@ -15,29 +15,31 @@ internal object ClaudexColors {
     private val NeutralVariant20 = Color(0xFF2B2B2E)
     private val NeutralVariant90 = Color(0xFFE3E2E6)
 
-    val darkScheme = darkColorScheme(
-        primary = Orange80,
-        onPrimary = Orange10,
-        primaryContainer = Orange30,
-        onPrimaryContainer = Orange90,
-        background = NeutralDark,
-        onBackground = Color.White,
-        surface = NeutralVariant20,
-        onSurface = Color.White,
-        surfaceVariant = NeutralVariant20,
-        onSurfaceVariant = NeutralVariant90,
-    )
+    val darkScheme =
+        darkColorScheme(
+            primary = Orange80,
+            onPrimary = Orange10,
+            primaryContainer = Orange30,
+            onPrimaryContainer = Orange90,
+            background = NeutralDark,
+            onBackground = Color.White,
+            surface = NeutralVariant20,
+            onSurface = Color.White,
+            surfaceVariant = NeutralVariant20,
+            onSurfaceVariant = NeutralVariant90,
+        )
 
-    val lightScheme = lightColorScheme(
-        primary = Orange40,
-        onPrimary = Color.White,
-        primaryContainer = Orange90,
-        onPrimaryContainer = Orange10,
-        background = NeutralLight,
-        onBackground = Color.Black,
-        surface = Color.White,
-        onSurface = Color.Black,
-        surfaceVariant = NeutralVariant90,
-        onSurfaceVariant = NeutralVariant20,
-    )
+    val lightScheme =
+        lightColorScheme(
+            primary = Orange40,
+            onPrimary = Color.White,
+            primaryContainer = Orange90,
+            onPrimaryContainer = Orange10,
+            background = NeutralLight,
+            onBackground = Color.Black,
+            surface = Color.White,
+            onSurface = Color.Black,
+            surfaceVariant = NeutralVariant90,
+            onSurfaceVariant = NeutralVariant20,
+        )
 }

@@ -11,7 +11,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
 class ProjectRepositoryTest {
-
     private lateinit var db: ClaudexDatabase
     private lateinit var repo: SqlDelightProjectRepository
 
@@ -24,31 +23,35 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    fun ProjectRepository_insert_and_observeAll_returnsInsertedProject() = runTest {
-        val project = Project(
-            id = "p1",
-            name = "Claudex",
-            path = "/Users/dev/claudex",
-            gitUrl = null,
-            createdAt = 1000L,
-        )
-        repo.insert(project).getOrThrow()
-        val projects = repo.observeAll().first()
-        assertEquals(1, projects.size)
-        assertEquals("Claudex", projects[0].name)
-        assertEquals("/Users/dev/claudex", projects[0].path)
-    }
+    fun ProjectRepository_insert_and_observeAll_returnsInsertedProject() =
+        runTest {
+            val project =
+                Project(
+                    id = "p1",
+                    name = "Claudex",
+                    path = "/Users/dev/claudex",
+                    gitUrl = null,
+                    createdAt = 1000L,
+                )
+            repo.insert(project).getOrThrow()
+            val projects = repo.observeAll().first()
+            assertEquals(1, projects.size)
+            assertEquals("Claudex", projects[0].name)
+            assertEquals("/Users/dev/claudex", projects[0].path)
+        }
 
     @Test
-    fun ProjectRepository_getById_returnsNullForMissingId() = runTest {
-        assertNull(repo.getById("nonexistent"))
-    }
+    fun ProjectRepository_getById_returnsNullForMissingId() =
+        runTest {
+            assertNull(repo.getById("nonexistent"))
+        }
 
     @Test
-    fun ProjectRepository_delete_removesProject() = runTest {
-        val project = Project("p2", "Temp", "/tmp", null, 2000L)
-        repo.insert(project).getOrThrow()
-        repo.delete("p2").getOrThrow()
-        assertNull(repo.getById("p2"))
-    }
+    fun ProjectRepository_delete_removesProject() =
+        runTest {
+            val project = Project("p2", "Temp", "/tmp", null, 2000L)
+            repo.insert(project).getOrThrow()
+            repo.delete("p2").getOrThrow()
+            assertNull(repo.getById("p2"))
+        }
 }

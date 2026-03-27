@@ -12,36 +12,38 @@ import kotlin.test.assertTrue
 
 @OptIn(ExperimentalTestApi::class)
 class StatusBarChipTest {
+    @Test
+    fun displaysLabel() =
+        runComposeUiTest {
+            setContent {
+                ClaudexTheme {
+                    StatusBarChip(label = "main", onClick = {})
+                }
+            }
+            onNodeWithText("main").assertIsDisplayed()
+        }
 
     @Test
-    fun displaysLabel() = runComposeUiTest {
-        setContent {
-            ClaudexTheme {
-                StatusBarChip(label = "main", onClick = {})
+    fun displaysLabelWithIcon() =
+        runComposeUiTest {
+            setContent {
+                ClaudexTheme {
+                    StatusBarChip(label = "claude-sonnet-4-5", onClick = {})
+                }
             }
+            onNodeWithText("claude-sonnet-4-5").assertIsDisplayed()
         }
-        onNodeWithText("main").assertIsDisplayed()
-    }
 
     @Test
-    fun displaysLabelWithIcon() = runComposeUiTest {
-        setContent {
-            ClaudexTheme {
-                StatusBarChip(label = "claude-sonnet-4-5", onClick = {})
+    fun statusBarChip_onClick_invokesCallback() =
+        runComposeUiTest {
+            var clicked = false
+            setContent {
+                ClaudexTheme {
+                    StatusBarChip(label = "Local", onClick = { clicked = true })
+                }
             }
+            onNodeWithText("Local").performClick()
+            assertTrue(clicked)
         }
-        onNodeWithText("claude-sonnet-4-5").assertIsDisplayed()
-    }
-
-    @Test
-    fun statusBarChip_onClick_invokesCallback() = runComposeUiTest {
-        var clicked = false
-        setContent {
-            ClaudexTheme {
-                StatusBarChip(label = "Local", onClick = { clicked = true })
-            }
-        }
-        onNodeWithText("Local").performClick()
-        assertTrue(clicked)
-    }
 }

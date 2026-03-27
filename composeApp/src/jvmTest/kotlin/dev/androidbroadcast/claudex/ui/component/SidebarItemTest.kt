@@ -13,43 +13,45 @@ import kotlin.test.assertTrue
 
 @OptIn(ExperimentalTestApi::class)
 class SidebarItemTest {
+    @Test
+    fun projectItemRendersNameAndClickFires() =
+        runComposeUiTest {
+            var clicked = false
+            setContent {
+                ClaudexTheme {
+                    ProjectItem(name = "Claudex", onClick = { clicked = true })
+                }
+            }
+            onNodeWithText("Claudex").assertExists()
+            onNodeWithText("Claudex").performClick()
+            assertTrue(clicked)
+        }
 
     @Test
-    fun projectItemRendersNameAndClickFires() = runComposeUiTest {
-        var clicked = false
-        setContent {
-            ClaudexTheme {
-                ProjectItem(name = "Claudex", onClick = { clicked = true })
+    fun sessionItemRendersNameAndClickFires() =
+        runComposeUiTest {
+            var clicked = false
+            setContent {
+                ClaudexTheme {
+                    SessionItem(name = "Session 1", timestamp = "2h ago", onClick = { clicked = true })
+                }
             }
+            onNodeWithText("Session 1").assertExists()
+            onNodeWithText("Session 1").performClick()
+            assertTrue(clicked)
         }
-        onNodeWithText("Claudex").assertExists()
-        onNodeWithText("Claudex").performClick()
-        assertTrue(clicked)
-    }
 
     @Test
-    fun sessionItemRendersNameAndClickFires() = runComposeUiTest {
-        var clicked = false
-        setContent {
-            ClaudexTheme {
-                SessionItem(name = "Session 1", timestamp = "2h ago", onClick = { clicked = true })
+    fun actionItemRendersLabelAndClickFires() =
+        runComposeUiTest {
+            var clicked = false
+            setContent {
+                ClaudexTheme {
+                    ActionItem(label = "New chat", onClick = { clicked = true })
+                }
             }
+            onNodeWithText("New chat").assertExists()
+            onNodeWithText("New chat").performClick()
+            assertTrue(clicked)
         }
-        onNodeWithText("Session 1").assertExists()
-        onNodeWithText("Session 1").performClick()
-        assertTrue(clicked)
-    }
-
-    @Test
-    fun actionItemRendersLabelAndClickFires() = runComposeUiTest {
-        var clicked = false
-        setContent {
-            ClaudexTheme {
-                ActionItem(label = "New chat", onClick = { clicked = true })
-            }
-        }
-        onNodeWithText("New chat").assertExists()
-        onNodeWithText("New chat").performClick()
-        assertTrue(clicked)
-    }
 }

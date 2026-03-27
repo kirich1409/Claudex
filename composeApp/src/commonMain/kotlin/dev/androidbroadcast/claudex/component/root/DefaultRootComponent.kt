@@ -21,14 +21,15 @@ internal class DefaultRootComponent(
     componentContext: ComponentContext,
     private val projectRepository: ProjectRepository,
     private val sessionRepository: SessionRepository,
+    @Suppress("UnusedPrivateProperty")
     private val chatComponentFactory: (ComponentContext, Session) -> ChatComponent,
 ) : RootComponent, ComponentContext by componentContext {
-
     private val scope = coroutineScope()
     private val _state = MutableValue(RootComponent.State())
 
     override val state: Value<RootComponent.State> = _state
 
+    @Suppress("UnusedPrivateProperty")
     private var activeChatComponent: ChatComponent? = null
     private val _child = MutableValue<RootComponent.Child>(RootComponent.Child.Welcome)
     override val child: Value<RootComponent.Child> = _child
@@ -47,11 +48,12 @@ internal class DefaultRootComponent(
         Napier.d(tag = TAG) { "Project selected: $projectId" }
         _state.update { it.copy(selectedProjectId = projectId, selectedSessionId = null) }
         sessionObserverJob?.cancel()
-        sessionObserverJob = scope.launch {
-            sessionRepository.observeByProject(projectId).collect { sessions ->
-                _state.update { it.copy(sessions = sessions) }
+        sessionObserverJob =
+            scope.launch {
+                sessionRepository.observeByProject(projectId).collect { sessions ->
+                    _state.update { it.copy(sessions = sessions) }
+                }
             }
-        }
     }
 
     override fun onSessionSelected(sessionId: String) {
@@ -63,15 +65,16 @@ internal class DefaultRootComponent(
     override fun onNewSessionRequested(projectId: String) {
         val projectPath = _state.value.projects.find { it.id == projectId }?.path ?: return
         Napier.d(tag = TAG) { "New session for project: $projectId at $projectPath" }
-        val session = Session(
-            id = generateId(),
-            projectId = projectId,
-            name = "New Session",
-            environment = SessionEnvironment.Local,
-            runOptions = ClaudeRunOptions(),
-            status = SessionStatus.ACTIVE,
-            createdAt = Clock.System.now().toEpochMilliseconds(),
-        )
+        val session =
+            Session(
+                id = generateId(),
+                projectId = projectId,
+                name = "New Session",
+                environment = SessionEnvironment.Local,
+                runOptions = ClaudeRunOptions(),
+                status = SessionStatus.ACTIVE,
+                createdAt = Clock.System.now().toEpochMilliseconds(),
+            )
         scope.launch {
             sessionRepository.insert(session)
                 .onSuccess { onSessionSelected(session.id) }
@@ -84,9 +87,10 @@ internal class DefaultRootComponent(
         // Handled by UI layer — signal via state update in a future iteration
     }
 
-    private fun generateId(): String = Clock.System.now()
-        .toEpochMilliseconds()
-        .toString(16)
+    private fun generateId(): String =
+        Clock.System.now()
+            .toEpochMilliseconds()
+            .toString(16)
 
     private companion object {
         private const val TAG = "RootComponent"

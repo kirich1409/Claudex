@@ -70,9 +70,10 @@ internal fun SidebarContent(
                             isRunning = session.status == SessionStatus.ACTIVE,
                             isSelected = session.id == state.selectedSessionId,
                             onClick = { onSessionSelected(session.id) },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 16.dp),
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 16.dp),
                         )
                     }
                 }

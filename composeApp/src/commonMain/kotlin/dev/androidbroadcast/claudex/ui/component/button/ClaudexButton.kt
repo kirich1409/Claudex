@@ -29,34 +29,39 @@ public fun ClaudexButton(
     enabled: Boolean = true,
 ) {
     val spacing = LocalSpacing.current
-    val contentPadding = remember(spacing.md, spacing.sm) {
-        PaddingValues(horizontal = spacing.md, vertical = spacing.sm)
-    }
+    val contentPadding =
+        remember(spacing.md, spacing.sm) {
+            PaddingValues(horizontal = spacing.md, vertical = spacing.sm)
+        }
     when (variant) {
-        ButtonVariant.Primary -> Button(
-            onClick = onClick,
-            enabled = enabled,
-            modifier = modifier,
-            contentPadding = contentPadding,
-        ) { Text(label) }
+        ButtonVariant.Primary ->
+            Button(
+                onClick = onClick,
+                enabled = enabled,
+                modifier = modifier,
+                contentPadding = contentPadding,
+            ) { Text(label) }
 
-        ButtonVariant.Ghost -> OutlinedButton(
-            onClick = onClick,
-            enabled = enabled,
-            modifier = modifier,
-            contentPadding = contentPadding,
-        ) { Text(label) }
+        ButtonVariant.Ghost ->
+            OutlinedButton(
+                onClick = onClick,
+                enabled = enabled,
+                modifier = modifier,
+                contentPadding = contentPadding,
+            ) { Text(label) }
 
-        ButtonVariant.Destructive -> Button(
-            onClick = onClick,
-            enabled = enabled,
-            modifier = modifier,
-            contentPadding = contentPadding,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.error,
-                contentColor = MaterialTheme.colorScheme.onError,
-            ),
-        ) { Text(label) }
+        ButtonVariant.Destructive ->
+            Button(
+                onClick = onClick,
+                enabled = enabled,
+                modifier = modifier,
+                contentPadding = contentPadding,
+                colors =
+                    ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error,
+                        contentColor = MaterialTheme.colorScheme.onError,
+                    ),
+            ) { Text(label) }
     }
 }
 

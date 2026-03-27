@@ -13,46 +13,48 @@ import kotlin.test.assertTrue
 
 @OptIn(ExperimentalTestApi::class)
 class MessageInputTest {
+    @Test
+    fun displaysTypedText() =
+        runComposeUiTest {
+            var value = ""
+            setContent {
+                ClaudexTheme {
+                    MessageInput(
+                        value = value,
+                        onValueChange = { value = it },
+                        onSend = {},
+                    )
+                }
+            }
+            onNodeWithContentDescription("Message input").performTextInput("Hello")
+            assertEquals("Hello", value)
+        }
 
     @Test
-    fun displaysTypedText() = runComposeUiTest {
-        var value = ""
-        setContent {
-            ClaudexTheme {
-                MessageInput(
-                    value = value,
-                    onValueChange = { value = it },
-                    onSend = {},
-                )
+    fun sendButtonIsVisible() =
+        runComposeUiTest {
+            setContent {
+                ClaudexTheme {
+                    MessageInput(value = "", onValueChange = {}, onSend = {})
+                }
             }
+            onNodeWithContentDescription("Send message").assertExists()
         }
-        onNodeWithContentDescription("Message input").performTextInput("Hello")
-        assertEquals("Hello", value)
-    }
 
     @Test
-    fun sendButtonIsVisible() = runComposeUiTest {
-        setContent {
-            ClaudexTheme {
-                MessageInput(value = "", onValueChange = {}, onSend = {})
+    fun sendButtonClickFiresOnSend() =
+        runComposeUiTest {
+            var sent = false
+            setContent {
+                ClaudexTheme {
+                    MessageInput(
+                        value = "Hello",
+                        onValueChange = {},
+                        onSend = { sent = true },
+                    )
+                }
             }
+            onNodeWithContentDescription("Send message").performClick()
+            assertTrue(sent)
         }
-        onNodeWithContentDescription("Send message").assertExists()
-    }
-
-    @Test
-    fun sendButtonClickFiresOnSend() = runComposeUiTest {
-        var sent = false
-        setContent {
-            ClaudexTheme {
-                MessageInput(
-                    value = "Hello",
-                    onValueChange = {},
-                    onSend = { sent = true },
-                )
-            }
-        }
-        onNodeWithContentDescription("Send message").performClick()
-        assertTrue(sent)
-    }
 }

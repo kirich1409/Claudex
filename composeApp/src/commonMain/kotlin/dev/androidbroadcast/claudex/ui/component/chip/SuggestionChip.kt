@@ -15,26 +15,28 @@ public fun SuggestionChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val colors = if (recommended) {
-        SuggestionChipDefaults.suggestionChipColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            labelColor = MaterialTheme.colorScheme.onPrimary,
-        )
-    } else {
-        SuggestionChipDefaults.suggestionChipColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-            labelColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-    }
-    val border = if (recommended) {
-        null
-    } else {
-        SuggestionChipDefaults.suggestionChipBorder(
-            enabled = true,
-            borderColor = MaterialTheme.colorScheme.outlineVariant,
-            borderWidth = 1.dp,
-        )
-    }
+    val colors =
+        if (recommended) {
+            SuggestionChipDefaults.suggestionChipColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                labelColor = MaterialTheme.colorScheme.onPrimary,
+            )
+        } else {
+            SuggestionChipDefaults.suggestionChipColors(
+                containerColor = MaterialTheme.colorScheme.surface,
+                labelColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    val border =
+        if (recommended) {
+            null
+        } else {
+            SuggestionChipDefaults.suggestionChipBorder(
+                enabled = true,
+                borderColor = MaterialTheme.colorScheme.outlineVariant,
+                borderWidth = 1.dp,
+            )
+        }
     SuggestionChip(
         onClick = onClick,
         label = { Text(label) },

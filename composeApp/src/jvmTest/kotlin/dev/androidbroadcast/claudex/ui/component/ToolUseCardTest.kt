@@ -12,32 +12,33 @@ import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
 class ToolUseCardTest {
+    @Test
+    fun collapsedByDefaultShowsToolNameOnly() =
+        runComposeUiTest {
+            setContent {
+                ClaudexTheme {
+                    ToolUseCard(
+                        toolName = "bash",
+                        content = """{"command": "ls -la"}""",
+                    )
+                }
+            }
+            onNodeWithText("bash").assertIsDisplayed()
+            onNodeWithText("""{"command": "ls -la"}""").assertDoesNotExist()
+        }
 
     @Test
-    fun collapsedByDefaultShowsToolNameOnly() = runComposeUiTest {
-        setContent {
-            ClaudexTheme {
-                ToolUseCard(
-                    toolName = "bash",
-                    content = """{"command": "ls -la"}""",
-                )
+    fun clickExpandsToShowContent() =
+        runComposeUiTest {
+            setContent {
+                ClaudexTheme {
+                    ToolUseCard(
+                        toolName = "bash",
+                        content = """{"command": "ls -la"}""",
+                    )
+                }
             }
+            onNodeWithContentDescription("Expand tool use").performClick()
+            onNodeWithText("""{"command": "ls -la"}""").assertIsDisplayed()
         }
-        onNodeWithText("bash").assertIsDisplayed()
-        onNodeWithText("""{"command": "ls -la"}""").assertDoesNotExist()
-    }
-
-    @Test
-    fun clickExpandsToShowContent() = runComposeUiTest {
-        setContent {
-            ClaudexTheme {
-                ToolUseCard(
-                    toolName = "bash",
-                    content = """{"command": "ls -la"}""",
-                )
-            }
-        }
-        onNodeWithContentDescription("Expand tool use").performClick()
-        onNodeWithText("""{"command": "ls -la"}""").assertIsDisplayed()
-    }
 }

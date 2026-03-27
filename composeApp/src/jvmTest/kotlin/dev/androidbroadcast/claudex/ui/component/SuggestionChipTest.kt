@@ -11,36 +11,38 @@ import kotlin.test.assertTrue
 
 @OptIn(ExperimentalTestApi::class)
 class SuggestionChipTest {
+    @Test
+    fun recommendedChipDisplaysLabel() =
+        runComposeUiTest {
+            setContent {
+                ClaudexTheme {
+                    SuggestionChip(label = "Fix bug", recommended = true, onClick = {})
+                }
+            }
+            onNodeWithText("Fix bug").assertExists()
+        }
 
     @Test
-    fun recommendedChipDisplaysLabel() = runComposeUiTest {
-        setContent {
-            ClaudexTheme {
-                SuggestionChip(label = "Fix bug", recommended = true, onClick = {})
+    fun alternativeChipDisplaysLabel() =
+        runComposeUiTest {
+            setContent {
+                ClaudexTheme {
+                    SuggestionChip(label = "Refactor", recommended = false, onClick = {})
+                }
             }
+            onNodeWithText("Refactor").assertExists()
         }
-        onNodeWithText("Fix bug").assertExists()
-    }
 
     @Test
-    fun alternativeChipDisplaysLabel() = runComposeUiTest {
-        setContent {
-            ClaudexTheme {
-                SuggestionChip(label = "Refactor", recommended = false, onClick = {})
+    fun chipClickFiresCallback() =
+        runComposeUiTest {
+            var clicked = false
+            setContent {
+                ClaudexTheme {
+                    SuggestionChip(label = "Go", recommended = true, onClick = { clicked = true })
+                }
             }
+            onNodeWithText("Go").performClick()
+            assertTrue(clicked)
         }
-        onNodeWithText("Refactor").assertExists()
-    }
-
-    @Test
-    fun chipClickFiresCallback() = runComposeUiTest {
-        var clicked = false
-        setContent {
-            ClaudexTheme {
-                SuggestionChip(label = "Go", recommended = true, onClick = { clicked = true })
-            }
-        }
-        onNodeWithText("Go").performClick()
-        assertTrue(clicked)
-    }
 }

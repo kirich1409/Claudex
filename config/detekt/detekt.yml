@@ -13,14 +13,18 @@ style:
       - '0'
       - '1'
       - '2'
+      - '3'
       - '4'
       - '8'
       - '16'
       - '24'
       - '32'
       - '48'
+      - '1000'
     ignorePropertyDeclaration: true
     ignoreCompanionObjectPropertyDeclaration: true
+    ignoreAnnotated:
+      - 'Composable'
   MaxLineLength:
     active: true
     maxLineLength: 120
@@ -32,10 +36,14 @@ complexity:
   LongMethod:
     active: true
     threshold: 40
+    ignoreAnnotated:
+      - 'Composable'
   LongParameterList:
     active: true
     functionThreshold: 6
     constructorThreshold: 6
+    ignoreAnnotated:
+      - 'Composable'
   TooManyFunctions:
     active: true
     thresholdInFiles: 20

@@ -26,6 +26,7 @@ public fun AssistantMessage(
     )
 }
 
+@Suppress("LoopWithTooManyJumpStatements")
 private fun parseInlineCode(
     text: String,
     monoFamily: FontFamily,

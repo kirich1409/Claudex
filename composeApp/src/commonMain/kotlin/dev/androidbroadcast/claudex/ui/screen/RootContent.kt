@@ -29,14 +29,16 @@ public fun RootContent(
     val scaffoldNavigator = rememberListDetailPaneScaffoldNavigator()
     val coroutineScope = rememberCoroutineScope()
 
-    val paneExpansionState = rememberPaneExpansionState(
-        key = PaneExpansionStateKey.Default,
-        anchors = listOf(
-            PaneExpansionAnchor.Proportion(0.25f),
-            PaneExpansionAnchor.Proportion(0.35f),
-            PaneExpansionAnchor.Proportion(0.45f),
-        ),
-    )
+    val paneExpansionState =
+        rememberPaneExpansionState(
+            key = PaneExpansionStateKey.Default,
+            anchors =
+                listOf(
+                    PaneExpansionAnchor.Proportion(0.25f),
+                    PaneExpansionAnchor.Proportion(0.35f),
+                    PaneExpansionAnchor.Proportion(0.45f),
+                ),
+        )
 
     ListDetailPaneScaffold(
         directive = scaffoldNavigator.scaffoldDirective,
@@ -60,15 +62,17 @@ public fun RootContent(
         detailPane = {
             AnimatedPane {
                 when (val c = child) {
-                    is RootComponent.Child.Welcome -> WelcomeScreen(
-                        projectName = state.projects
-                            .find { it.id == state.selectedProjectId }
-                            ?.name,
-                        onNewSession = {
-                            state.selectedProjectId
-                                ?.let(component::onNewSessionRequested)
-                        },
-                    )
+                    is RootComponent.Child.Welcome ->
+                        WelcomeScreen(
+                            projectName =
+                                state.projects
+                                    .find { it.id == state.selectedProjectId }
+                                    ?.name,
+                            onNewSession = {
+                                state.selectedProjectId
+                                    ?.let(component::onNewSessionRequested)
+                            },
+                        )
                     is RootComponent.Child.Chat -> ChatScreen(component = c.component)
                 }
             }

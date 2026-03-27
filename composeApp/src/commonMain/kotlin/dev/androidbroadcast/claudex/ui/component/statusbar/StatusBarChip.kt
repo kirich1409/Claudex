@@ -51,9 +51,10 @@ public fun StatusBarChip(
             }
         },
         leadingIcon = leadingIcon,
-        colors = AssistChipDefaults.assistChipColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer,
-        ),
+        colors =
+            AssistChipDefaults.assistChipColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            ),
         modifier = modifier.height(32.dp),
     )
 }

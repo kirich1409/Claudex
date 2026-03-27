@@ -10,8 +10,11 @@ public interface RootComponent {
     public val child: Value<Child>
 
     public fun onProjectSelected(projectId: String)
+
     public fun onSessionSelected(sessionId: String)
+
     public fun onNewSessionRequested(projectId: String)
+
     public fun onNewProjectRequested()
 
     public data class State(
@@ -23,6 +26,7 @@ public interface RootComponent {
 
     public sealed interface Child {
         public data object Welcome : Child
+
         public data class Chat(val component: ChatComponent) : Child
     }
 }

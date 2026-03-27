@@ -9,7 +9,6 @@ internal class DefaultSidebarComponent(
     componentContext: ComponentContext,
     rootState: Value<RootComponent.State>,
 ) : SidebarComponent, ComponentContext by componentContext {
-
     private val _state = MutableValue(rootState.value.toSidebarState())
 
     override val state: Value<SidebarComponent.State> = _state
@@ -21,9 +20,10 @@ internal class DefaultSidebarComponent(
     }
 }
 
-private fun RootComponent.State.toSidebarState() = SidebarComponent.State(
-    projects = projects,
-    sessions = sessions,
-    selectedProjectId = selectedProjectId,
-    selectedSessionId = selectedSessionId,
-)
+private fun RootComponent.State.toSidebarState() =
+    SidebarComponent.State(
+        projects = projects,
+        sessions = sessions,
+        selectedProjectId = selectedProjectId,
+        selectedSessionId = selectedSessionId,
+    )
