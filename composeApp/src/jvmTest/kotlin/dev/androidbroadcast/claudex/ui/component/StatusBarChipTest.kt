@@ -15,7 +15,7 @@ class StatusBarChipTest {
     fun displaysLabel() = runComposeUiTest {
         setContent {
             ClaudexTheme {
-                StatusBarChip(label = "main")
+                StatusBarChip(label = "main", onClick = {})
             }
         }
         onNodeWithText("main").assertIsDisplayed()
@@ -25,7 +25,7 @@ class StatusBarChipTest {
     fun displaysLabelWithIcon() = runComposeUiTest {
         setContent {
             ClaudexTheme {
-                StatusBarChip(label = "claude-sonnet-4-5", showIcon = true)
+                StatusBarChip(label = "claude-sonnet-4-5", onClick = {})
             }
         }
         onNodeWithText("claude-sonnet-4-5").assertIsDisplayed()

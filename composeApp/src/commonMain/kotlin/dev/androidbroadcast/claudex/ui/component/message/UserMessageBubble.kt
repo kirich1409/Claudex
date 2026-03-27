@@ -3,6 +3,7 @@ package dev.androidbroadcast.claudex.ui.component.message
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -22,13 +23,14 @@ public fun UserMessageBubble(
     ) {
         Surface(
             color = MaterialTheme.colorScheme.surfaceContainerHigh,
-            shape = MaterialTheme.shapes.medium,
+            shape = RoundedCornerShape(12.dp),
+            modifier = Modifier.fillMaxWidth(0.8f),
         ) {
             Text(
                 text = text,
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
             )
         }
     }

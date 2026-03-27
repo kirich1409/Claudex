@@ -13,7 +13,11 @@ public fun ClaudexTheme(
 ) {
     val colorScheme = if (darkTheme) ClaudexColors.darkScheme else ClaudexColors.lightScheme
     val spacing = remember { ClaudexSpacing() }
-    CompositionLocalProvider(LocalSpacing provides spacing) {
+    val codeFont = robotoMonoFontFamily()
+    CompositionLocalProvider(
+        LocalSpacing provides spacing,
+        LocalCodeFont provides codeFont,
+    ) {
         MaterialTheme(
             colorScheme = colorScheme,
             typography = claudexTypography(),

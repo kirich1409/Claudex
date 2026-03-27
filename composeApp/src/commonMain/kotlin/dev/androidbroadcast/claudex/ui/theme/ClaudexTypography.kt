@@ -2,14 +2,26 @@ package dev.androidbroadcast.claudex.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import claudex.composeapp.generated.resources.Inter_Medium
 import claudex.composeapp.generated.resources.Inter_Regular
 import claudex.composeapp.generated.resources.Inter_SemiBold
 import claudex.composeapp.generated.resources.Res
+import claudex.composeapp.generated.resources.RobotoMono_Regular
 import org.jetbrains.compose.resources.Font
+
+@Composable
+internal fun robotoMonoFontFamily(): FontFamily {
+    val regular = Font(Res.font.RobotoMono_Regular, weight = FontWeight.Normal)
+    return remember(regular) { FontFamily(regular) }
+}
+
+public val LocalCodeFont: ProvidableCompositionLocal<FontFamily> =
+    staticCompositionLocalOf { error("LocalCodeFont not provided — wrap with ClaudexTheme") }
 
 @Composable
 internal fun claudexTypography(): Typography {

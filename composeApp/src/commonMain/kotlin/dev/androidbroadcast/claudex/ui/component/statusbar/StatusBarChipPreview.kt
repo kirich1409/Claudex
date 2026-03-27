@@ -4,6 +4,7 @@ package dev.androidbroadcast.claudex.ui.component.statusbar
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,6 +17,7 @@ private fun StatusBarChipLabelOnlyPreview() {
     ClaudexTheme {
         StatusBarChip(
             label = "main",
+            onClick = {},
             modifier = Modifier.padding(8.dp),
         )
     }
@@ -27,7 +29,8 @@ private fun StatusBarChipWithIconPreview() {
     ClaudexTheme {
         StatusBarChip(
             label = "claude-sonnet-4-5",
-            showIcon = true,
+            onClick = {},
+            leadingIcon = { Text("●") },
             modifier = Modifier.padding(8.dp),
         )
     }
@@ -53,8 +56,8 @@ private fun StatusBarChipRowPreview() {
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             modifier = Modifier.padding(8.dp),
         ) {
-            StatusBarChip(label = "main")
-            StatusBarChip(label = "claude-sonnet-4-5", showIcon = true)
+            StatusBarChip(label = "main", onClick = {})
+            StatusBarChip(label = "claude-sonnet-4-5", onClick = {}, leadingIcon = { Text("●") })
             StatusBarChip(label = "2 errors", onClick = {})
         }
     }
