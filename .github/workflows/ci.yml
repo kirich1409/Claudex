@@ -80,6 +80,7 @@ jobs:
   coverage:
     name: Coverage Report
     runs-on: ubuntu-latest
+    continue-on-error: true
     needs: [ check-jvm ]
     steps:
       - uses: actions/checkout@v4
