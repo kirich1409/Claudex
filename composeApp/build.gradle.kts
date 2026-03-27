@@ -132,7 +132,6 @@ detekt {
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     jvmTarget = "17"
-    languageVersion = "1.9"
 }
 
 // Exclude Compose-generated sources from ktlint checks.
@@ -142,12 +141,6 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
 // replace it with a FileTree rooted at src/ only.
 tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.BaseKtLintCheckTask>().configureEach {
     setSource(fileTree("src") { include("**/*.kt", "**/*.kts") })
-}
-// Re-apply after all KMP sources have been wired so the src-only tree wins.
-gradle.taskGraph.whenReady {
-    tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.BaseKtLintCheckTask>().forEach { task ->
-        task.setSource(fileTree("src") { include("**/*.kt", "**/*.kts") })
-    }
 }
 
 dependencies {
