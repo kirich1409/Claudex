@@ -1,6 +1,7 @@
 package dev.androidbroadcast.claudex
 
 import androidx.compose.ui.window.ComposeUIViewController
+import platform.UIKit.UIViewController
 
 @Suppress("FunctionNaming")
-fun MainViewController() = ComposeUIViewController { App() }
+public fun MainViewController(): UIViewController = ComposeUIViewController { App() }

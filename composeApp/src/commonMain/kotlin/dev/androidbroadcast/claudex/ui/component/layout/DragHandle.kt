@@ -15,13 +15,6 @@ import androidx.compose.ui.unit.dp
 /**
  * A subtle vertical drag handle for resizing adjacent panels.
  *
- * Renders a 4.dp-wide vertical bar with a [PointerIcon.Hand] cursor on desktop.
- *
- * @param modifier Optional [Modifier].
- */
-/**
- * A subtle vertical drag handle for resizing adjacent panels.
- *
  * Renders a 4.dp-wide bar that fills its parent's height, coloured with
  * [MaterialTheme.colorScheme.surfaceContainerHigh]. On desktop, the cursor
  * changes to [PointerIcon.Hand] on hover.
@@ -31,10 +24,11 @@ import androidx.compose.ui.unit.dp
 @Composable
 public fun DragHandle(modifier: Modifier = Modifier) {
     Box(
-        modifier = modifier
-            .width(4.dp)
-            .fillMaxHeight()
-            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-            .pointerHoverIcon(PointerIcon.Hand),
+        modifier =
+            modifier
+                .width(4.dp)
+                .fillMaxHeight()
+                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                .pointerHoverIcon(PointerIcon.Hand),
     )
 }

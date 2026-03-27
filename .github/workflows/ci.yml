@@ -36,7 +36,7 @@ jobs:
           distribution: 'temurin'
       - uses: gradle/actions/setup-gradle@v4
       - name: Compile Android target
-        run: ./gradlew :composeApp:compileKotlinAndroid
+        run: ./gradlew :composeApp:compileDebugKotlinAndroid
 
   check-ios:
     name: iOS Compile
