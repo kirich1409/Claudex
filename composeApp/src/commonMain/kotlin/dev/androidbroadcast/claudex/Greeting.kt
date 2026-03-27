@@ -1,9 +1,9 @@
 package dev.androidbroadcast.claudex
 
-class Greeting {
+public class Greeting {
     private val platform = getPlatform()
 
-    fun greet(): String {
+    public fun greet(): String {
         return "Hello, ${platform.name}!"
     }
 }
