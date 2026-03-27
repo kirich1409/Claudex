@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.detekt)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
@@ -47,13 +48,23 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.sqldelight.runtime)
+            implementation(libs.sqldelight.coroutines)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+            implementation(libs.sqldelight.jvmDriver)
+        }
+        val jvmTest by getting {
+            dependencies {
+                implementation(libs.sqldelight.inMemoryDriver)
+                implementation(libs.kotlinx.coroutines.test)
+            }
         }
     }
 }
@@ -129,6 +140,17 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "dev.androidbroadcast.claudex"
             packageVersion = "1.0.0"
+        }
+    }
+}
+
+sqldelight {
+    databases {
+        create("ClaudexDatabase") {
+            packageName.set("dev.androidbroadcast.claudex.data.db")
+            schemaOutputDirectory.set(file("src/commonMain/sqldelight/schema"))
+            migrationOutputDirectory.set(file("src/commonMain/sqldelight/migrations"))
+            verifyMigrations.set(true)
         }
     }
 }
