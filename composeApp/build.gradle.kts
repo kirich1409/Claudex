@@ -57,6 +57,9 @@ kotlin {
             implementation(libs.essenty.lifecycle)
             implementation(libs.essenty.lifecycle.coroutines)
             implementation(libs.napier)
+            implementation(libs.material3.adaptive)
+            implementation(libs.material3.adaptive.layout)
+            implementation(libs.material3.adaptive.navigation)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

@@ -7,30 +7,30 @@ import kotlinx.serialization.json.JsonObject
  * Events are parsed imperatively by [ClaudeEventParser] — not via kotlinx.serialization.
  */
 public sealed interface ClaudeEvent {
-    public class AssistantText(val text: String) : ClaudeEvent
+    public class AssistantText(public val text: String) : ClaudeEvent
 
     public class ToolUse(
-        val name: String,
-        val toolUseId: String,
-        val input: JsonObject,
+        public val name: String,
+        public val toolUseId: String,
+        public val input: JsonObject,
     ) : ClaudeEvent
 
     public class ToolResult(
-        val toolUseId: String,
-        val content: String,
+        public val toolUseId: String,
+        public val content: String,
     ) : ClaudeEvent
 
-    public class Suggestions(val choices: List<String>) : ClaudeEvent
+    public class Suggestions(public val choices: List<String>) : ClaudeEvent
 
     public class SystemInit(
         /** Raw model identifier string as returned by Claude (e.g. "claude-sonnet-4-6"). May not match a known [ClaudeModel] entry. */
-        val model: String,
-        val sessionId: String,
+        public val model: String,
+        public val sessionId: String,
     ) : ClaudeEvent
 
     public class ResultEnd(
-        val durationMs: Long,
-        val costUsd: Double,
+        public val durationMs: Long,
+        public val costUsd: Double,
     ) : ClaudeEvent
 
     public data class ProcessError(
