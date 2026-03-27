@@ -1,4 +1,5 @@
 @file:Suppress("UnusedPrivateMember")
+
 package dev.androidbroadcast.claudex.ui.component.message
 
 import androidx.compose.foundation.layout.Column

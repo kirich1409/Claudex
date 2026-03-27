@@ -1,5 +1,6 @@
 @file:Suppress("UnusedPrivateMember")
 // commonMain
+
 package dev.androidbroadcast.claudex.ui.component.sidebar
 
 import androidx.compose.foundation.layout.Column
