@@ -3,6 +3,9 @@ package dev.androidbroadcast.claudex.domain.model
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 
 public class ClaudeRunOptionsTest {
 
@@ -30,5 +33,20 @@ public class ClaudeRunOptionsTest {
         assertEquals("default", PermissionMode.DEFAULT.cliValue)
         assertEquals("plan", PermissionMode.PLAN.cliValue)
         assertEquals("bypassPermissions", PermissionMode.BYPASS_PERMISSIONS.cliValue)
+    }
+
+    @Test
+    fun ClaudeRunOptions_serializationRoundTrip_preservesAllFields() {
+        val opts = ClaudeRunOptions(
+            model = ClaudeModel.OPUS_4_6,
+            maxTurns = 5,
+            permissionMode = PermissionMode.AUTO,
+            systemPrompt = "You are helpful",
+            allowedTools = listOf("Read", "Write"),
+            verbose = true,
+        )
+        val json = Json.encodeToString(opts)
+        val decoded = Json.decodeFromString<ClaudeRunOptions>(json)
+        assertEquals(opts, decoded)
     }
 }
