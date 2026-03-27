@@ -9,30 +9,21 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.withStyle
-import claudex.composeapp.generated.resources.RobotoMono_Regular
-import claudex.composeapp.generated.resources.Res
-import org.jetbrains.compose.resources.Font
+import dev.androidbroadcast.claudex.ui.theme.LocalCodeFont
 
 @Composable
 public fun AssistantMessage(
     text: String,
     modifier: Modifier = Modifier,
 ) {
-    val monoFamily = robotoMonoFontFamily()
-    val annotated = remember(text) { parseInlineCode(text, monoFamily) }
+    val monoFamily = LocalCodeFont.current
+    val annotated = remember(text, monoFamily) { parseInlineCode(text, monoFamily) }
     Text(
         text = annotated,
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.onSurface,
         modifier = modifier,
     )
-}
-
-@Composable
-internal fun robotoMonoFontFamily(): FontFamily {
-    // Res.font.* is a generated constant — stable across recompositions
-    val font = Font(Res.font.RobotoMono_Regular)
-    return remember { FontFamily(font) }
 }
 
 private fun parseInlineCode(

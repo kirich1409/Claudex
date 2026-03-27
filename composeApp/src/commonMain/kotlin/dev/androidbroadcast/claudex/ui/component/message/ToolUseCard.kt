@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import dev.androidbroadcast.claudex.ui.theme.LocalCodeFont
 
 @Composable
 public fun ToolUseCard(
@@ -30,7 +31,7 @@ public fun ToolUseCard(
     modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val monoFamily = robotoMonoFontFamily()
+    val monoFamily = LocalCodeFont.current
     val chevronRotation by animateFloatAsState(
         targetValue = if (expanded) 180f else 0f,
         label = "chevron",

@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
@@ -42,7 +44,7 @@ public fun ProjectItem(
     modifier: Modifier = Modifier,
 ) {
     val spacing = LocalSpacing.current
-    val itemModifier = rememberHoverableItemModifier(
+    val itemModifier = hoverableItemModifier(
         spacing = spacing,
         hoveredColor = MaterialTheme.colorScheme.surfaceVariant,
         defaultColor = MaterialTheme.colorScheme.surface,
@@ -76,29 +78,32 @@ public fun SessionItem(
     isSelected: Boolean = false,
 ) {
     val spacing = LocalSpacing.current
-    val interactionSource = remember { MutableInteractionSource() }
-    val hovered by interactionSource.collectIsHoveredAsState()
+    val itemModifier = hoverableItemModifier(
+        spacing = spacing,
+        hoveredColor = MaterialTheme.colorScheme.surfaceVariant,
+        defaultColor = Color.Transparent,
+        onClick = onClick,
+        isSelected = isSelected,
+        selectedColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+    )
 
-    val bgColor = when {
-        isSelected -> MaterialTheme.colorScheme.surfaceContainerHighest
-        hovered -> MaterialTheme.colorScheme.surfaceVariant
-        else -> Color.Transparent
+    val dotModifier = if (isRunning) {
+        Modifier
+            .size(8.dp)
+            .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
+            .semantics { contentDescription = "Session running" }
+    } else {
+        Modifier
+            .size(8.dp)
+            .clearAndSetSemantics { }
     }
-
-    val itemModifier = Modifier
-        .fillMaxWidth()
-        .clip(RoundedCornerShape(spacing.xs))
-        .background(bgColor)
-        .hoverable(interactionSource)
-        .clickable(onClick = onClick)
-        .padding(horizontal = spacing.md, vertical = spacing.sm)
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-            .minimumInteractiveComponentSize()
-            .then(itemModifier),
+        horizontalArrangement = Arrangement.spacedBy(spacing.sm),
+        modifier = modifier.then(itemModifier),
     ) {
+        Box(modifier = dotModifier)
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = name,
@@ -111,17 +116,6 @@ public fun SessionItem(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-        Box(
-            modifier = Modifier
-                .size(8.dp)
-                .background(
-                    color = if (isRunning) MaterialTheme.colorScheme.primary else Color.Transparent,
-                    shape = CircleShape,
-                )
-                .semantics {
-                    if (isRunning) contentDescription = "Session running"
-                },
-        )
     }
 }
 
@@ -133,7 +127,7 @@ public fun ActionItem(
     modifier: Modifier = Modifier,
 ) {
     val spacing = LocalSpacing.current
-    val itemModifier = rememberHoverableItemModifier(
+    val itemModifier = hoverableItemModifier(
         spacing = spacing,
         hoveredColor = MaterialTheme.colorScheme.primaryContainer,
         defaultColor = MaterialTheme.colorScheme.surface,
@@ -161,19 +155,26 @@ public fun ActionItem(
 }
 
 /**
- * Builds the shared hover-aware modifier used by ProjectItem and ActionItem.
+ * Builds the shared hover-aware modifier used by sidebar items.
  * Hover background switches from [defaultColor] to [hoveredColor] on pointer entry.
+ * When [isSelected] is true and [selectedColor] is provided, the selected color takes priority.
  */
 @Composable
-private fun rememberHoverableItemModifier(
+private fun hoverableItemModifier(
     spacing: ClaudexSpacing,
     hoveredColor: Color,
     defaultColor: Color,
     onClick: () -> Unit,
+    isSelected: Boolean = false,
+    selectedColor: Color = Color.Unspecified,
 ): Modifier {
     val interactionSource = remember { MutableInteractionSource() }
     val hovered by interactionSource.collectIsHoveredAsState()
-    val bgColor = if (hovered) hoveredColor else defaultColor
+    val bgColor = when {
+        isSelected && selectedColor != Color.Unspecified -> selectedColor
+        hovered -> hoveredColor
+        else -> defaultColor
+    }
     return Modifier
         .fillMaxWidth()
         .clip(RoundedCornerShape(spacing.xs))
