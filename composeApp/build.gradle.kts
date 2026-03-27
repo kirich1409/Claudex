@@ -50,6 +50,11 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.sqldelight.runtime)
             implementation(libs.sqldelight.coroutines)
+            implementation(libs.decompose)
+            implementation(libs.decompose.extensionsCompose)
+            implementation(libs.essenty.lifecycle)
+            implementation(libs.essenty.lifecycle.coroutines)
+            implementation(libs.napier)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
