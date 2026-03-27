@@ -13,7 +13,7 @@ import dev.androidbroadcast.claudex.domain.model.SessionStatus
 import dev.androidbroadcast.claudex.domain.repository.ProjectRepository
 import dev.androidbroadcast.claudex.domain.repository.SessionRepository
 import io.github.aakira.napier.Napier
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 
@@ -24,10 +24,16 @@ internal class DefaultRootComponent(
     private val chatComponentFactory: (ComponentContext, Session) -> ChatComponent,
 ) : RootComponent, ComponentContext by componentContext {
 
-    private val scope = coroutineScope(SupervisorJob())
+    private val scope = coroutineScope()
     private val _state = MutableValue(RootComponent.State())
 
     override val state: Value<RootComponent.State> = _state
+
+    private var activeChatComponent: ChatComponent? = null
+    private val _child = MutableValue<RootComponent.Child>(RootComponent.Child.Welcome)
+    override val child: Value<RootComponent.Child> = _child
+
+    private var sessionObserverJob: Job? = null
 
     init {
         scope.launch {
@@ -40,7 +46,8 @@ internal class DefaultRootComponent(
     override fun onProjectSelected(projectId: String) {
         Napier.d(tag = TAG) { "Project selected: $projectId" }
         _state.update { it.copy(selectedProjectId = projectId, selectedSessionId = null) }
-        scope.launch {
+        sessionObserverJob?.cancel()
+        sessionObserverJob = scope.launch {
             sessionRepository.observeByProject(projectId).collect { sessions ->
                 _state.update { it.copy(sessions = sessions) }
             }
@@ -50,6 +57,8 @@ internal class DefaultRootComponent(
     override fun onSessionSelected(sessionId: String) {
         Napier.d(tag = TAG) { "Session selected: $sessionId" }
         _state.update { it.copy(selectedSessionId = sessionId) }
+        // Child routing will be wired in Task 8 when chatComponentFactory is available
+        // For now, just track the selection in state
     }
 
     override fun onNewSessionRequested(projectId: String) {

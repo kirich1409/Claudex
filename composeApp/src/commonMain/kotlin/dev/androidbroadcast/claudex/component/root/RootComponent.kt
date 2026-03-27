@@ -7,6 +7,7 @@ import dev.androidbroadcast.claudex.domain.model.Session
 
 public interface RootComponent {
     public val state: Value<State>
+    public val child: Value<Child>
 
     public fun onProjectSelected(projectId: String)
     public fun onSessionSelected(sessionId: String)

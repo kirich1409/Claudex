@@ -12,7 +12,6 @@ import dev.androidbroadcast.claudex.domain.model.Session
 import dev.androidbroadcast.claudex.domain.repository.MessageRepository
 import dev.androidbroadcast.claudex.process.ClaudeProcessDriver
 import io.github.aakira.napier.Napier
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 
@@ -23,7 +22,7 @@ internal class DefaultChatComponent(
     private val messageRepository: MessageRepository,
 ) : ChatComponent, ComponentContext by componentContext {
 
-    private val scope = coroutineScope(SupervisorJob())
+    private val scope = coroutineScope()
     private val _state = MutableValue(ChatComponent.State())
 
     override val state: Value<ChatComponent.State> = _state
