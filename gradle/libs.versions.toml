@@ -24,7 +24,6 @@ sqldelight = "2.3.2"
 decompose = "3.5.0"
 essenty = "2.5.0"
 mvikotlin = "4.3.0"
-metro = "0.12.0"
 napier = "2.7.1"
 ktor = "3.4.1"
 kover = "0.9.1"
@@ -86,4 +85,3 @@ sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }
 gradleGitHooks = { id = "org.danilopianini.gradle-pre-commit-git-hooks", version.ref = "gradle-git-hooks" }
-metro = { id = "dev.zacsweers.metro", version.ref = "metro" }
