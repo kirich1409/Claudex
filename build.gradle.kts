@@ -9,4 +9,8 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.detekt) apply false
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.sqldelight) apply false
+    alias(libs.plugins.kotlinxSerialization) apply false
+    alias(libs.plugins.kover) apply false
+    alias(libs.plugins.sonarqube) apply false
 }

@@ -9,6 +9,9 @@ plugins {
     alias(libs.plugins.composeHotReload)
     alias(libs.plugins.detekt)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.sqldelight)
+    alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.kover)
 }
 
 kotlin {
@@ -44,13 +47,36 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.decompose)
+            implementation(libs.decompose.extensionsCompose)
+            implementation(libs.essenty.lifecycle)
+            implementation(libs.essenty.lifecycle.coroutines)
+            implementation(libs.mvikotlin)
+            implementation(libs.mvikotlin.main)
+            implementation(libs.mvikotlin.coroutines)
+            implementation(libs.sqldelight.runtime)
+            implementation(libs.sqldelight.coroutines)
+            implementation(libs.napier)
+            implementation(libs.material3.adaptive)
+            implementation(libs.material3.adaptive.layout)
+            implementation(libs.material3.adaptive.navigation)
+            implementation(libs.material3.adaptive.navigationSuite)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.jetbrains.annotations)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+            implementation(libs.sqldelight.jvmDriver)
+        }
+        jvmTest.dependencies {
+            implementation(libs.kotlin.testJunit)
+            implementation(libs.sqldelight.jvmDriver)
         }
     }
 }
@@ -79,6 +105,27 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+}
+
+sqldelight {
+    databases {
+        create("ClaudexDatabase") {
+            packageName.set("dev.androidbroadcast.claudex.data.db")
+            schemaOutputDirectory.set(file("src/commonMain/sqldelight/schema"))
+            migrationOutputDirectory.set(file("src/commonMain/sqldelight/migrations"))
+            verifyMigrations.set(true)
+        }
+    }
+}
+
+kover {
+    reports {
+        verify {
+            rule {
+                minBound(80)
+            }
+        }
     }
 }
 
