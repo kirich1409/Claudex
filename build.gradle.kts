@@ -12,5 +12,6 @@ plugins {
     alias(libs.plugins.sqldelight) apply false
     alias(libs.plugins.kotlinxSerialization) apply false
     alias(libs.plugins.kover) apply false
-    alias(libs.plugins.sonarqube) apply false
+    alias(libs.plugins.sonarqube)
+    alias(libs.plugins.metro) apply false
 }

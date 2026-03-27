@@ -12,9 +12,20 @@ plugins {
     alias(libs.plugins.sqldelight)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.kover)
+    alias(libs.plugins.metro)
 }
 
 kotlin {
+    explicitApi()
+
+    compilerOptions {
+        freeCompilerArgs.addAll(
+            "-Werror",
+            "-Xwhen-guards",
+        )
+        allWarningsAsErrors.set(true)
+    }
+
     androidTarget {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
@@ -60,7 +71,6 @@ kotlin {
             implementation(libs.material3.adaptive)
             implementation(libs.material3.adaptive.layout)
             implementation(libs.material3.adaptive.navigation)
-            implementation(libs.material3.adaptive.navigationSuite)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.datetime)
             implementation(libs.jetbrains.annotations)
@@ -76,7 +86,7 @@ kotlin {
         }
         jvmTest.dependencies {
             implementation(libs.kotlin.testJunit)
-            implementation(libs.sqldelight.jvmDriver)
+            implementation(libs.sqldelight.inMemoryDriver)
         }
     }
 }

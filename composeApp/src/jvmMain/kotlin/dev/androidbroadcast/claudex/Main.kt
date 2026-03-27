@@ -3,7 +3,7 @@ package dev.androidbroadcast.claudex
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 
-fun main() =
+public fun main(): Unit =
     application {
         Window(
             onCloseRequest = ::exitApplication,

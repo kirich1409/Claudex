@@ -64,13 +64,13 @@ mvikotlin-coroutines = { module = "com.arkivanov.mvikotlin:mvikotlin-extensions-
 sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqldelight" }
 sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 sqldelight-jvmDriver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
+sqldelight-inMemoryDriver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 
 material3-adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "material3-adaptive" }
 material3-adaptive-layout = { module = "org.jetbrains.compose.material3.adaptive:adaptive-layout", version.ref = "material3-adaptive" }
 material3-adaptive-navigation = { module = "org.jetbrains.compose.material3.adaptive:adaptive-navigation", version.ref = "material3-adaptive" }
-material3-adaptive-navigationSuite = { module = "org.jetbrains.compose.material3:material3-adaptive-navigation-suite", version = "1.9.0" }
 
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
@@ -91,3 +91,4 @@ kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }
 gradleGitHooks = { id = "org.danilopianini.gradle-pre-commit-git-hooks", version.ref = "gradle-git-hooks" }
+metro = { id = "dev.zacsweers.metro", version.ref = "metro" }
