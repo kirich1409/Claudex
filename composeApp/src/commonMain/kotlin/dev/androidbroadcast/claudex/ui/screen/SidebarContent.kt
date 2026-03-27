@@ -18,9 +18,7 @@ import dev.androidbroadcast.claudex.domain.model.SessionStatus
 import dev.androidbroadcast.claudex.ui.component.sidebar.ActionItem
 import dev.androidbroadcast.claudex.ui.component.sidebar.ProjectItem
 import dev.androidbroadcast.claudex.ui.component.sidebar.SessionItem
-import kotlinx.datetime.Instant
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import dev.androidbroadcast.claudex.ui.util.toRelativeTimestamp
 
 @Composable
 internal fun SidebarContent(
@@ -83,14 +81,4 @@ internal fun SidebarContent(
         HorizontalDivider()
         ActionItem(label = "Settings", onClick = {})
     }
-}
-
-/**
- * Converts an epoch-millisecond timestamp to a short human-readable relative label.
- * e.g. "Today", "Yesterday", or "MMM d" for older dates.
- */
-private fun Long.toRelativeTimestamp(): String {
-    val instant = Instant.fromEpochMilliseconds(this)
-    val local = instant.toLocalDateTime(TimeZone.currentSystemDefault())
-    return "${local.month.name.take(3).lowercase().replaceFirstChar { it.uppercaseChar() }} ${local.dayOfMonth}"
 }

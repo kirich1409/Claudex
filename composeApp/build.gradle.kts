@@ -83,6 +83,14 @@ kotlin {
     }
 }
 
+// kotlinx-datetime 0.7.1 is pulled transitively by Compose 1.10 but the project
+// is compiled against 0.6.0. Force all runtime configurations to stay on 0.6.0 so
+// compile and runtime use the same jar and `kotlinx/datetime/Instant.class` is present.
+configurations.all {
+    resolutionStrategy.force("org.jetbrains.kotlinx:kotlinx-datetime:${libs.versions.kotlinx.datetime.get()}")
+    resolutionStrategy.force("org.jetbrains.kotlinx:kotlinx-datetime-jvm:${libs.versions.kotlinx.datetime.get()}")
+}
+
 android {
     namespace = "dev.androidbroadcast.claudex"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
