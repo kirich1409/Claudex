@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS Project (
+    id         TEXT PRIMARY KEY NOT NULL,
+    name       TEXT NOT NULL,
+    path       TEXT NOT NULL,
+    git_url    TEXT,
+    created_at INTEGER NOT NULL
+);
+
+insertProject:
+INSERT OR REPLACE INTO Project(id, name, path, git_url, created_at)
+VALUES (?, ?, ?, ?, ?);
+
+selectAll:
+SELECT * FROM Project ORDER BY created_at DESC;
+
+selectById:
+SELECT * FROM Project WHERE id = ?;
+
+deleteById:
+DELETE FROM Project WHERE id = ?;

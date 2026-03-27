@@ -1,0 +1,26 @@
+CREATE TABLE IF NOT EXISTS Session (
+    id          TEXT PRIMARY KEY NOT NULL,
+    project_id  TEXT NOT NULL,
+    name        TEXT NOT NULL,
+    environment TEXT NOT NULL,
+    run_options TEXT NOT NULL,
+    status      TEXT NOT NULL,
+    created_at  INTEGER NOT NULL,
+    FOREIGN KEY (project_id) REFERENCES Project(id)
+);
+
+insertSession:
+INSERT OR REPLACE INTO Session(id, project_id, name, environment, run_options, status, created_at)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+selectByProjectId:
+SELECT * FROM Session WHERE project_id = ? ORDER BY created_at DESC;
+
+selectById:
+SELECT * FROM Session WHERE id = ?;
+
+updateStatus:
+UPDATE Session SET status = ? WHERE id = ?;
+
+deleteById:
+DELETE FROM Session WHERE id = ?;
