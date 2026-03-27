@@ -1,0 +1,27 @@
+version: 2
+updates:
+  - package-ecosystem: gradle
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      kotlin-ecosystem:
+        patterns:
+          - "org.jetbrains.*"
+          - "org.jetbrains.kotlin*"
+      compose:
+        patterns:
+          - "androidx.compose.*"
+          - "androidx.compose.material3.*"
+      arkivanov:
+        patterns:
+          - "com.arkivanov.*"
+    open-pull-requests-limit: 10
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
