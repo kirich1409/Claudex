@@ -27,8 +27,6 @@ style:
     excludeCommentStatements: true
   WildcardImport:
     active: true
-    excludeImports:
-      - 'kotlinx.coroutines.*'
 
 complexity:
   LongMethod:
@@ -47,8 +45,10 @@ naming:
   FunctionNaming:
     active: true
     functionPattern: '[a-zA-Z][a-zA-Z0-9]*'
-    excludes:
-      - '**/ui/**'
+    ignoreAnnotated:
+      - 'Composable'
+  MatchingDeclarationName:
+    active: false
 
 exceptions:
   TooGenericExceptionCaught:

@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
     alias(libs.plugins.detekt)
+    alias(libs.plugins.ktlint)
 }
 
 kotlin {
@@ -16,19 +17,19 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     listOf(
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
         }
     }
-    
+
     jvm()
-    
+
     sourceSets {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
@@ -78,6 +79,38 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+}
+
+detekt {
+    source.setFrom(
+        "src/commonMain/kotlin",
+        "src/androidMain/kotlin",
+        "src/iosMain/kotlin",
+        "src/jvmMain/kotlin",
+    )
+    config.setFrom(rootProject.files("config/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
+    allRules = false
+}
+
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    jvmTarget = "17"
+    languageVersion = "1.9"
+}
+
+// Exclude Compose-generated sources from ktlint checks.
+// The jlleitschuh ktlint plugin (12.x) adds generated KMP resource files to its
+// source sets via lazy ConfigurableFileCollection providers, bypassing the
+// standard filter{} API. We intercept at the task's sourceFiles field and
+// replace it with a FileTree rooted at src/ only.
+tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.BaseKtLintCheckTask>().configureEach {
+    setSource(fileTree("src") { include("**/*.kt", "**/*.kts") })
+}
+// Re-apply after all KMP sources have been wired so the src-only tree wins.
+gradle.taskGraph.whenReady {
+    tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.BaseKtLintCheckTask>().forEach { task ->
+        task.setSource(fileTree("src") { include("**/*.kt", "**/*.kts") })
     }
 }
 
