@@ -36,11 +36,12 @@ internal class SqlDelightProjectRepository(
                 git_url = project.gitUrl,
                 created_at = project.createdAt,
             )
+            Unit
         }
     }
 
     override suspend fun delete(id: String): Result<Unit> = withContext(dispatcher) {
-        runCatching { db.projectQueries.deleteById(id) }
+        runCatching { db.projectQueries.deleteById(id); Unit }
     }
 
     private fun rowToProject(row: ProjectRow): Project =

@@ -62,8 +62,7 @@ kotlin {
         }
         val jvmTest by getting {
             dependencies {
-                implementation(libs.sqldelight.inMemoryDriver)
-                implementation(libs.kotlinx.coroutines.test)
+                implementation(libs.sqldelight.jvmDriver)
             }
         }
     }

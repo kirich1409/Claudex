@@ -42,16 +42,17 @@ internal class SqlDelightSessionRepository(
                 status = session.status.name,
                 created_at = session.createdAt,
             )
+            Unit
         }
     }
 
     override suspend fun updateStatus(id: String, status: SessionStatus): Result<Unit> =
         withContext(dispatcher) {
-            runCatching { db.sessionQueries.updateStatus(status = status.name, id = id) }
+            runCatching { db.sessionQueries.updateStatus(status = status.name, id = id); Unit }
         }
 
     override suspend fun delete(id: String): Result<Unit> = withContext(dispatcher) {
-        runCatching { db.sessionQueries.deleteById(id) }
+        runCatching { db.sessionQueries.deleteById(id); Unit }
     }
 
     private fun rowToSession(row: SessionRow): Session =
@@ -61,7 +62,7 @@ internal class SqlDelightSessionRepository(
             name = row.name,
             environment = domainJson.decodeFromString<SessionEnvironment>(row.environment),
             runOptions = domainJson.decodeFromString<ClaudeRunOptions>(row.run_options),
-            status = SessionStatus.valueOf(row.status),
+            status = SessionStatus.entries.firstOrNull { it.name == row.status } ?: SessionStatus.STOPPED,
             createdAt = row.created_at,
         )
 }

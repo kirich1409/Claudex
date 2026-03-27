@@ -34,19 +34,20 @@ internal class SqlDelightMessageRepository(
                 raw_json = message.rawJson,
                 timestamp = message.timestamp,
             )
+            Unit
         }
     }
 
     override suspend fun deleteBySession(sessionId: String): Result<Unit> =
         withContext(dispatcher) {
-            runCatching { db.messageQueries.deleteBySessionId(sessionId) }
+            runCatching { db.messageQueries.deleteBySessionId(sessionId); Unit }
         }
 
     private fun rowToMessage(row: MessageRow): Message =
         Message(
             id = row.id,
             sessionId = row.session_id,
-            role = MessageRole.valueOf(row.role),
+            role = MessageRole.entries.firstOrNull { it.name == row.role } ?: MessageRole.ASSISTANT,
             content = row.content,
             rawJson = row.raw_json,
             timestamp = row.timestamp,
