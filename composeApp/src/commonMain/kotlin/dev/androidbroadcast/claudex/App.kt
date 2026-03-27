@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import dev.androidbroadcast.claudex.ui.theme.ClaudexTheme
 import org.jetbrains.compose.resources.painterResource
 
 import claudex.composeapp.generated.resources.Res
@@ -22,7 +23,7 @@ import claudex.composeapp.generated.resources.compose_multiplatform
 @Composable
 @Preview
 public fun App() {
-    MaterialTheme {
+    ClaudexTheme {
         var showContent by remember { mutableStateOf(false) }
         Column(
             modifier = Modifier
