@@ -42,8 +42,10 @@ public fun main() {
         componentContext = DefaultComponentContext(lifecycle),
         projectRepository = projectRepository,
         sessionRepository = sessionRepository,
-        // Only called when navigating into a session. Wire when chat DI is implemented.
-        chatComponentFactory = { _, _ -> TODO("Wired in follow-up iteration") },
+        // Only called when DefaultRootComponent navigates to chat — not wired yet.
+        chatComponentFactory = { _, _ ->
+            error("chatComponentFactory not yet wired. Wire before enabling chat navigation.")
+        },
     )
 
     application {

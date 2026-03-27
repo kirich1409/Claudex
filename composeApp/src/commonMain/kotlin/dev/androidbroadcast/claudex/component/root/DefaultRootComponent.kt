@@ -56,9 +56,8 @@ internal class DefaultRootComponent(
 
     override fun onSessionSelected(sessionId: String) {
         Napier.d(tag = TAG) { "Session selected: $sessionId" }
+        // chatComponentFactory wired in follow-up iteration — session selection updates state only
         _state.update { it.copy(selectedSessionId = sessionId) }
-        // Child routing will be wired in Task 8 when chatComponentFactory is available
-        // For now, just track the selection in state
     }
 
     override fun onNewSessionRequested(projectId: String) {
