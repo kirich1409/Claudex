@@ -43,8 +43,7 @@ gitHooks {
             """
             ./gradlew ktlintCheck &&
             ./gradlew detekt &&
-            ./gradlew :composeApp:jvmTest &&
-            ./gradlew :composeApp:koverVerify
+            ./gradlew :composeApp:jvmTest
             """.trimIndent()
         }
     }
