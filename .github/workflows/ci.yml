@@ -93,7 +93,7 @@ jobs:
       - name: Generate coverage report
         run: ./gradlew koverXmlReport
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         with:
           files: composeApp/build/reports/kover/report.xml
           token: ${{ secrets.CODECOV_TOKEN }}
