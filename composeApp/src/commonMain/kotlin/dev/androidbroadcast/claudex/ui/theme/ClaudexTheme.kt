@@ -4,6 +4,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 
 @Composable
 public fun ClaudexTheme(
@@ -11,7 +12,8 @@ public fun ClaudexTheme(
     content: @Composable () -> Unit,
 ) {
     val colorScheme = if (darkTheme) ClaudexColors.darkScheme else ClaudexColors.lightScheme
-    CompositionLocalProvider(LocalSpacing provides ClaudexSpacing()) {
+    val spacing = remember { ClaudexSpacing() }
+    CompositionLocalProvider(LocalSpacing provides spacing) {
         MaterialTheme(
             colorScheme = colorScheme,
             typography = claudexTypography(),
