@@ -29,7 +29,7 @@ ktor = "3.4.1"
 kover = "0.9.1"
 jetbrains-annotations = "26.1.0"
 sonarqube = "7.2.2.6593"
-gradle-git-hooks = "2.0.27"
+gradle-git-hooks = "2.1.16"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
